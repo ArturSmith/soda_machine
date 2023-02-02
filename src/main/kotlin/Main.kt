@@ -1,7 +1,89 @@
 import Soda.*
+import SodaMachineCommands.*
 
 fun main() {
 
+
+    sodaMachine()
+}
+
+fun sodaMachine() {
+    printAvailableCommands()
+    var money: Int = 0
+    var inventory: List<Soda> = listOf(
+        Soda("Coke", 25, 3),
+        Soda("Sprite", 15, 5),
+        Soda("Fanta", 30, 6)
+    )
+
+    while (true) {
+
+        when (readln()) {
+            INSERT_COMMAND.commandValue -> money += insertMoney()
+            INSERTED_MONEY_COMMAND.commandValue -> println("You have $money money")
+            ORDER_COMMAND.commandValue -> {
+                val order = orderSoda(money, inventory)
+                if (order.isNotEmpty()) {
+                    inventory = order
+                    money = 0
+                }
+            }
+
+            SMS_ORDER_COMMAND.commandValue -> {
+                println(
+                    "Order by sms\n" +
+                            "Please"
+                )
+                val order = orderSoda(money, inventory)
+                if (order.isNotEmpty()) {
+                    inventory = order
+                    money = 0
+                }
+            }
+
+            RECALL_COMMAND.commandValue -> {
+                println("Returning $money to customer")
+                money = 0
+            }
+        }
+    }
+}
+
+
+private fun insertMoney(): Int {
+    var money: Int = 0
+    println("Insert money please")
+    val input = readlnOrNull()
+    money += input!!.toInt()
+    return money
+}
+
+private fun orderSoda(money: Int, inventory: List<Soda>): List<Soda> {
+    println("Choose soda: ")
+    inventory.forEach { print("${it.name}\n") }
+    val userSoda = readln()
+
+    inventory.forEach { soda ->
+        return if (soda.name == userSoda) {
+            if (money >= soda.price) {
+                println("Giving ${soda.name} out")
+                println(("Giving ${money - soda.price} out in change"))
+                soda.order()
+                inventory
+            } else {
+                println("Not enough money. Need ${soda.price - money} more ")
+                emptyList()
+            }
+        } else {
+            println("No such soda")
+            emptyList()
+        }
+    }
+    return inventory
+}
+
+
+fun printAvailableCommands() {
     println(
         "Available commands:\n" +
                 "                insert - Money put into money slot\n" +
@@ -11,83 +93,4 @@ fun main() {
                 "                -------\n" +
                 "                Inserted money: + _money\n"
     )
-
-    sodaMachine()
-
-}
-
-fun sodaMachine() {
-
-    // The started method for the machine
-    var money: Int = 0
-    var inventory: List<Soda> = listOf(Soda("Coke", 25, 3), Soda("Sprite", 15, 5), Soda("Fanta", 30, 6))
-
-    while (true) {
-
-        // Input action
-        val input = readln()
-
-        // Checking what was chosen
-        when (input) {
-            "insert" -> money += insertMoney()
-            "inserted money" -> println("You have $money money")
-            "order" -> {
-                val order = order(money, inventory)
-                if (order != null) {
-                    inventory = order
-                    money = 0
-                }
-            }
-
-            "sms order" -> {
-                println(
-                    "Order by sms\n" +
-                            "Please"
-                )
-                val order = order(money, inventory)
-                if (order != null) {
-                    inventory = order
-                    money = 0
-                }
-            }
-
-            "recall" -> {
-                println("Returning $money to customer")
-                money = 0
-            }
-        }
-    }
-}
-
-fun insertMoney(): Int {
-    var money: Int = 0
-    println("Insert money please")
-    val _input = readlnOrNull()
-    money += _input!!.toInt()
-    return money
-}
-
-fun order(_money: Int, _inventory: List<Soda>): List<Soda>? {
-    var inventory: List<Soda>? = _inventory
-    println("Choose soda: ")
-    inventory?.forEach { print("${it.name}\n") }
-    val soda = readLine()
-    inventory?.forEach {
-        if (it.name == soda) {
-            if (it.num > 0) {
-                if (_money >= it.price) {
-                    println("Giving ${it.name} out")
-                    println(("Giving ${_money - it.price} out in change"))
-                    it.order()
-                } else {
-                    println("Not enough money. Need ${it.price - _money} more ")
-                    inventory = null
-                }
-            } else {
-                println("No such soda")
-                inventory = null
-            }
-        }
-    }
-    return inventory
 }
