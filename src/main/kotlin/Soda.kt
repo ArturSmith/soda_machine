@@ -10,8 +10,10 @@ class Soda(_name: String, _price: Int, _num: Int) {
     }
 
     fun order() {
-        if (num > 0) num.dec()
-        println("$name = $num")
+        if (num > 0) {
+            num--
+            println("$name - $num")
+        }
     }
 
 }

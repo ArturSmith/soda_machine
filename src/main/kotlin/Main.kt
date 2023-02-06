@@ -65,13 +65,18 @@ private fun orderSoda(money: Int, inventory: List<Soda>): List<Soda> {
 
     inventory.forEach { soda ->
         return if (soda.name == userSoda) {
-            if (money >= soda.price) {
-                println("Giving ${soda.name} out")
-                println(("Giving ${money - soda.price} out in change"))
-                soda.order()
-                inventory
+            if (soda.num > 0) {
+                if (money >= soda.price) {
+                    soda.order()
+                    println("Giving ${soda.name} out")
+                    println(("Giving ${money - soda.price} out in change"))
+                    inventory
+                } else {
+                    println("Not enough money. Need ${soda.price - money} more ")
+                    emptyList()
+                }
             } else {
-                println("Not enough money. Need ${soda.price - money} more ")
+                println("Not enought ${soda.name}")
                 emptyList()
             }
         } else {

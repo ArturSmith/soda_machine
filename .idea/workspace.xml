@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="483c6bd2-9aa2-4d5d-9990-fc5a26b4c890" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/SodaMachineCommands.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Soda.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Soda.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/SodaMachineCommands.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/SodaMachineCommands.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,5 +56,16 @@
       <updated>1675182309412</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
