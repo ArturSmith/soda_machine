@@ -12,8 +12,8 @@ fun sodaMachine() {
     var money: Int = 0
     var inventory: List<Soda> = listOf(
         Soda("Coke", 25, 3),
-        Soda("Sprite", 15, 5),
-        Soda("Fanta", 30, 6)
+        Soda("Sprite", 15, 3),
+        Soda("Fanta", 30, 3)
     )
 
     while (true) {
@@ -63,26 +63,26 @@ private fun orderSoda(money: Int, inventory: List<Soda>): List<Soda> {
     inventory.forEach { print("${it.name}\n") }
     val userSoda = readln()
 
+
     inventory.forEach { soda ->
-        return if (soda.name == userSoda) {
+
+        if (soda.name == userSoda) {
             if (soda.num > 0) {
-                if (money >= soda.price) {
+                if (soda.price <= money) {
                     soda.order()
                     println("Giving ${soda.name} out")
                     println(("Giving ${money - soda.price} out in change"))
-                    inventory
+                    return inventory
                 } else {
-                    println("Not enough money. Need ${soda.price - money} more ")
-                    emptyList()
+                    println("Not enough money")
+                    return emptyList()
                 }
             } else {
-                println("Not enought ${soda.name}")
-                emptyList()
+                println("No such soda")
+                return emptyList()
             }
-        } else {
-            println("No such soda")
-            emptyList()
         }
+
     }
     return inventory
 }
